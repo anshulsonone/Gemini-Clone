@@ -7,6 +7,16 @@ const Main = () => {
 
     const{onSent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(Context)
 
+    const handleInputChange = (e) => {
+      setInput(e.target.value);
+  }
+
+  const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+          onSent(); // Call your function when Enter is pressed
+      }
+  }
+
 
   return (
     <div className='main'>
@@ -64,12 +74,15 @@ const Main = () => {
         </div>
         }
 
-
-        
-
         <div className="main-bottom">
           <div className="search-box">
-            <input onChange ={(e)=> setInput(e.target.value)} value={input} type="text" placeholder="Enter a prompt here" />
+          <input
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown} // Added this event handler
+                value={input}
+                type="text"
+                placeholder="Enter a prompt here"
+          />
             <div>
               <img src={assets.gallery_icon} alt="" />
               <img src={assets.mic_icon} alt="" />
@@ -79,7 +92,6 @@ const Main = () => {
           <p className="bottom-info">
           Gemini may display inaccurate info, including about people, so double-check its responses. Your privacy & Gemini Apps
           </p>
-
         </div>
       </div>
     </div>
